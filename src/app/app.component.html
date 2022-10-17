@@ -1,0 +1,83 @@
+<div class="contenedor">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <fa-icon [icon]="faFaceSmile"></fa-icon>
+      </a>
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <fa-icon [icon]="faListAlt"></fa-icon>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/batpadre">¿Quien es Batman?</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="gustos">Mis Gustos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="asd">Link roto :D</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav d-flex flex-row ms-auto me-3">
+          <li class="nav-item me-3 me-lg-0 dropdown">
+            <button type="button" class="btn-warning btn rounded">Iniciar sesion</button>
+          </li>
+          <li class="nav-item me-3 me-lg-0 dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-mdb-toggle="dropdown"
+              aria-expanded="false">
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
+                alt="avatar image" loading="lazy" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<router-outlet></router-outlet>
+<div>
+  <footer class="bg-dark text-center text-white">
+  <div class="container p-4 pb-0">
+    <section class="mb-4">
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+        <fa-icon [icon]="faFacebook"></fa-icon>
+      </a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+        <fa-icon [icon]="faTwitter"></fa-icon>
+      </a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+        <fa-icon [icon]="faGoogle"></fa-icon>
+      </a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+        <fa-icon [icon]="faInstagram"></fa-icon>
+      </a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+        <fa-icon [icon]="faLinkedin"></fa-icon>
+      </a>
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+        <fa-icon [icon]="faGithub"></fa-icon>
+      </a>
+    </section>
+  </div>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2020 Copyright:
+    <a class="text-white" href="#">Bruce Wayne</a>
+  </div>
+</footer>
+</div>
+</div>

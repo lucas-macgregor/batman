@@ -1,0 +1,21 @@
+<div class="container mt-5">
+  <h1 class="mb-3">Sobre mi:</h1>
+  <div>
+    <table class="table table-striped table-dark mb-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Me gusta</th>
+          <th scope="col">No me gusta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gusto of gustos">
+          <th scope="row">{{gusto.id}}</th>
+          <td>{{gusto.meGusta}}</td>
+          <td>{{gusto.noGusta}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

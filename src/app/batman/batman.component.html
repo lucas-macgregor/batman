@@ -1,0 +1,37 @@
+
+<div class="container mt-5">
+    <h1 class="mb-3">¿Quien es Batman?</h1>
+    <span class="rounded" [ngStyle]="{'backgroundColor': sabe?'red':'green'}">(Lo sabemos?)</span>
+    <input type="checkbox"
+    [checked]="sabe"
+    (change)="sabe=!sabe">
+    <p *ngIf="sabe else nosabe">Bruce Wayne :O!</p>
+    <ng-template #nosabe><p>Un vampiro muscoloso :O!</p></ng-template>
+</div>
+<div class="container mt-5 mb-5">
+  <p>Batman es: {{batSelect}}</p>
+  <div class="input-group">
+    <select class="custom-select rounded" [(ngModel)]="batSelect" name="batSelect" id="batSelect">
+      <option *ngFor="let opcion of opciones" [value]="opcion.opcion">{{opcion.opcion}}</option>
+    </select>
+    <div class="input-group-append">
+      <button class="btn btn-dark" type="button" (click)="esCorrecto(batSelect)">¿Es correcto?</button>
+    </div>
+  </div>
+  <p class="mt-2">Agregar opcion:</p>
+  <div class="input-group agregar-opc mb-3">
+    <input type="text" class="form-control rounded" placeholder="Ingrese nueva opcion..." #agregar>
+    <div class="input-group-append">
+      <button class="btn btn-dark" type="button" (click)="agregarOpcion(agregar.value)">Agregar</button>
+    </div>
+  </div>
+  <p class="mt-2">Quitar opcion:</p>
+  <div class="input-group">
+    <select class="custom-select rounded" name="batQuitar" id="batQuitar"  #quitar>
+      <option *ngFor="let opcion of opciones" [value]="opcion.id">{{opcion.opcion}}</option>
+    </select>
+    <div class="input-group-append">
+      <button class="btn btn-dark" type="button" (click)="quitarOpcion(quitar.value)">Quitar</button>
+    </div>
+  </div>
+</div>
