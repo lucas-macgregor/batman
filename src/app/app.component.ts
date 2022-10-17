@@ -19,6 +19,7 @@ export class AppComponent {
  faGithub   = faGithub   ;
  faLinkedin = faLinkedin ;
  faGoogle   = faGoogle   ;
+ isNavbarCollapsed:boolean=false;
  constructor() { }
 
  ngOnInit(): void { }
