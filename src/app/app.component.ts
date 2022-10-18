@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons'
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
-import { faInstagram, faFacebook, faTwitter, faGithub, faLinkedin,faGoogle} from '@fortawesome/free-brands-svg-icons'
+import { faInstagram, faFacebook, faTwitter, faGithub, faLinkedin, faGoogle} from '@fortawesome/free-brands-svg-icons'
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ export class AppComponent {
  faGithub   = faGithub   ;
  faLinkedin = faLinkedin ;
  faGoogle   = faGoogle   ;
- isNavbarCollapsed:boolean=false;
+ isNavbarCollapsed:boolean=true;
  constructor() { }
 
  ngOnInit(): void { }
