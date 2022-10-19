@@ -28,4 +28,6 @@ export class ApiService {
   public quitarOpcion (id:number) {
     return this.http.delete('http://localhost:3050/quitaropcion/'+id)
   }
+
+  
 }
