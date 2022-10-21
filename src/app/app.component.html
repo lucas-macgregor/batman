@@ -1,6 +1,6 @@
 <div class="contenedor">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex">
       <a class="navbar-brand" href="#">
         <fa-icon [icon]="faFaceSmile"></fa-icon>
       </a>
@@ -31,15 +31,15 @@
         </ul>
         <ul class="navbar-nav d-flex flex-row ms-auto me-3">
           <li class="nav-item me-3 me-lg-0 dropdown">
-            <button type="button" class="btn-warning btn rounded">Iniciar sesion</button>
+            <button routerLink='/login' type="button" class="btn-warning btn rounded">Iniciar sesion</button>
           </li>
           <li class="nav-item me-3 me-lg-0 dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-mdb-toggle="dropdown"
+            <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-mdb-toggle="dropdown"
               aria-expanded="false">
               <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
-                alt="avatar image" loading="lazy" />
+                alt="avatar image"/>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
+            <!--ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown1">
               <li><a class="dropdown-item" href="#">Action</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li>
@@ -48,7 +48,7 @@
               <li>
                 <a class="dropdown-item" href="#">Something else here</a>
               </li>
-            </ul>
+            </ul!-->
           </li>
         </ul>
       </div>
@@ -80,7 +80,7 @@
     </section>
   </div>
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2020 Copyright:
+    © 2022 Copyright:
     <a class="text-white" href="#">Bruce Wayne</a>
   </div>
 </footer>

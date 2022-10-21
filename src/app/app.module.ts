@@ -12,6 +12,7 @@ import { BatpadreComponent } from './batpadre/batpadre.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderInterceptor } from './interceptors/header.interceptor';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HeaderInterceptor } from './interceptors/header.interceptor';
     GustosComponent,
     NotfoundComponent,
     InicioComponent,
-    BatpadreComponent
+    BatpadreComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

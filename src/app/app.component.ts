@@ -20,9 +20,10 @@ export class AppComponent {
  faLinkedin = faLinkedin ;
  faGoogle   = faGoogle   ;
  isNavbarCollapsed:boolean=true;
+ islogged:boolean=false;
+
  constructor() { }
 
  ngOnInit(): void { }
-
  
 }
