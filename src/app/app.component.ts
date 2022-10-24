@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons'
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faInstagram, faFacebook, faTwitter, faGithub, faLinkedin, faGoogle} from '@fortawesome/free-brands-svg-icons'
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,12 @@ export class AppComponent {
  faLinkedin = faLinkedin ;
  faGoogle   = faGoogle   ;
  isNavbarCollapsed:boolean=true;
- islogged:boolean=false;
 
- constructor() { }
 
- ngOnInit(): void { }
+ constructor(private auth:AuthService) { }
+
+ ngOnInit(): void { 
+  this.auth.setInitialStatus();
+ }
  
 }

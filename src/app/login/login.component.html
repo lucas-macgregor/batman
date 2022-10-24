@@ -1,4 +1,4 @@
-<div class="loginBox container mt-4">
+<div *ngIf="!loggedIn else logMeOut" class="loginBox container mt-4">
   <img
     class="user"
     src="https://i.ibb.co/yVGxFPR/2.png"
@@ -34,3 +34,15 @@
     <p class="violeta">Registrate</p>
   </div>
 </div>
+<ng-template #logMeOut> 
+  <div class="loginBox container mt-4">
+    <img
+    class="user"
+    src="https://i.ibb.co/yVGxFPR/2.png"
+    height="100px"
+    width="100px"
+  />
+  <h3>Hola Usuario</h3>
+    <button type="submit" (click)="logOut()">Cerrar Sesion</button> 
+  </div>
+</ng-template>
