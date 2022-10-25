@@ -1,5 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   loggedIn:boolean=false;
   loginResp:any;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router) { }
 
   loginRequest(username:string, password:string) {
     const userData= {"username" :username, "password": password};
@@ -18,8 +19,10 @@ export class AuthService {
       error: (e) => console.error (e),
       complete: () => {
         this.loggedIn=(this.loginResp.success)
-        if (this.loggedIn===true) 
+        if (this.loggedIn===true) {
           localStorage.setItem('loggedIn','true');
+          this.router.navigateByUrl('inicio');
+        }
       }
     });
     return this.loggedIn;
@@ -44,5 +47,6 @@ export class AuthService {
   logOut() {
     this.loggedIn=false;
     localStorage.removeItem('loggedIn');
+    this.router.navigateByUrl('inicio');
   }
 }
