@@ -1,21 +1,22 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { LoginResp } from '../models/loginresp'
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   loggedIn:boolean=false;
-  loginResp:any;
+  loginResp:LoginResp={success:false};
   constructor(private http:HttpClient, private router:Router) { }
 
   loginRequest(username:string, password:string) {
     const userData= {"username" :username, "password": password};
     //comprobaciones pendientes
-    this.http.post("http://localhost:3050/login",userData)
+    this.http.post<LoginResp>("http://localhost:3050/login",userData)
     .subscribe({
-      next: (response) => this.loginResp=response,
+      next: (response:LoginResp) => {this.loginResp=response,
+        console.log(response);},
       error: (e) => console.error (e),
       complete: () => {
         this.loggedIn=(this.loginResp.success)
