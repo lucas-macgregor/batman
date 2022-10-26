@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { Options } from '../models/options';
+import { ApiService } from '../../services/api.service';
+import { Options } from '../../models/options';
 
 @Component({
   selector: 'app-batman',

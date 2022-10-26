@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Table } from '../models/table';
-import { ApiService } from '../services/api.service';
+import { Table } from '../../models/table';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-gustos',

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotfoundComponent } from './components/notfound/notfound.component';
-import { InicioComponent } from './components/inicio/inicio.component';
-import { GustosComponent } from './components/gustos/gustos.component';
-import { BatpadreComponent } from './components/batpadre/batpadre.component';
-import { AuthGuard } from './guards/auth.guard';
-import { LoginComponent } from './components/login/login.component';
+import { InicioComponent } from 'src/app/components/inicio/inicio.component';
+import { GustosComponent } from 'src/app/components/gustos/gustos.component';
+import { BatpadreComponent } from 'src/app/components/batpadre/batpadre.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
+import { NotfoundComponent } from 'src/app/components/notfound/notfound.component'
+import { AuthGuard } from 'src/app/guards/auth.guard';
+
 
 const routes: Routes = [
   {path: 'inicio', component: InicioComponent},
@@ -24,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class BatmanRoutingModule { }
