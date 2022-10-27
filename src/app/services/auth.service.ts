@@ -22,7 +22,7 @@ export class AuthService {
         this.loggedIn=(this.loginResp.success)
         if (this.loggedIn===true) {
           localStorage.setItem('loggedIn','true');
-          this.router.navigateByUrl('inicio');
+          this.router.navigateByUrl('batman/inicio');
         }
       }
     });
@@ -42,12 +42,13 @@ export class AuthService {
   }
   
   isLoggedIn () {
+    this.setInitialStatus();
     return this.loggedIn;
   }
 
   logOut() {
     this.loggedIn=false;
     localStorage.removeItem('loggedIn');
-    this.router.navigateByUrl('inicio');
+    this.router.navigateByUrl('login');
   }
 }

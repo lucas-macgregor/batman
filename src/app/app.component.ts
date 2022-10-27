@@ -25,8 +25,6 @@ export class AppComponent {
 
  constructor(private auth:AuthService) { }
 
- ngOnInit(): void { 
-  this.auth.setInitialStatus();
- }
+ ngOnInit(): void {  }
  
 }
