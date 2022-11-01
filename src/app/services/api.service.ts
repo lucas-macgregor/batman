@@ -11,22 +11,22 @@ import { Options } from '../models/options';
 export class ApiService {
   constructor(private http: HttpClient) { }
 
+  private url:string= 'http://localhost:3050';
+
   public getOpciones(): Observable<Options[]> {
-    const url='http://localhost:3050/opciones';
-    return this.http.get<Options[]>(url, {responseType: 'json'});
+    return this.http.get<Options[]>(this.url+'/opciones', {responseType: 'json'});
   }
 
   public getGustos (): Observable<Table[]> {
-    const url='http://localhost:3050/gustos';
-    return this.http.get<Table[]>(url, {responseType: 'json'});
+    return this.http.get<Table[]>(this.url+'gustos', {responseType: 'json'});
   }
 
   public agregarOpcion(opcion:string) {
-    return this.http.post('http://localhost:3050/agregaropcion',{"opcion": opcion});
+    return this.http.post(this.url+'/agregaropcion',{"opcion": opcion});
   }
 
   public quitarOpcion (id:number) {
-    return this.http.delete('http://localhost:3050/quitaropcion/'+id)
+    return this.http.delete(this.url+'/quitaropcion/'+id)
   }
 
   

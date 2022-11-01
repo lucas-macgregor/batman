@@ -6,23 +6,35 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private auth:AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(this.agregarHeader(request));
   }
 
   agregarHeader(request:HttpRequest<unknown>) {
-    const mensaje:string='Mensaje interceptado :D';
-    return request.clone({
-      setHeaders:{
-        msg: mensaje
-      }
-    })
+    const token:string | null=this.auth.getToken();
+    const username:string|null=this.auth.getUsername();
+    if (token!==null && username!== '') {
+      return request.clone({
+        setHeaders:{
+          token: token,
+          username: username
+        }
+      })
+    } else {
+      return request.clone({
+        setHeaders:{
+          token: '',
+          username: ''
+        }
+      })
+    }
   }
 }
 
