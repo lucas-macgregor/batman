@@ -22,6 +22,10 @@ body {
     color: #59238f;
 }
 
+.rojo {
+  color:red;
+}
+
 .loginBox {
   width: 350px;
   min-height: 200px;

@@ -18,7 +18,7 @@ export class ApiService {
   }
 
   public getGustos (): Observable<Table[]> {
-    return this.http.get<Table[]>(this.url+'gustos', {responseType: 'json'});
+    return this.http.get<Table[]>(this.url+'/gustos', {responseType: 'json'});
   }
 
   public agregarOpcion(opcion:string) {
@@ -28,6 +28,4 @@ export class ApiService {
   public quitarOpcion (id:number) {
     return this.http.delete(this.url+'/quitaropcion/'+id)
   }
-
-  
 }

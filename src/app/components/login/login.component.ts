@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loggedIn:boolean=false;
-
+  onLoginError:boolean=false;
   constructor(private auth:AuthService, router:Router) { }
 
   ngOnInit(): void {
@@ -19,10 +19,15 @@ export class LoginComponent implements OnInit {
 
   onLogin (username:string, password:string): void {
     const user:UserInt={username:username, password:password, email:''};
-    this.auth.login(user).subscribe({
-      error: (e) => console.log(e),
-      complete: () => this.loggedIn=true
-    });
+    if (username.trim()!=='' && password.trim()!==''){
+      this.auth.login(user).subscribe({
+        error: (e) => this.onLoginError=true,
+        complete: () => {
+          this.loggedIn=true;
+          this.onLoginError=false;
+        }
+      });
+    }
   }
 
   logOut () {
