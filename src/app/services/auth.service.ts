@@ -3,29 +3,29 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JWTInt } from '../models/jwtinterface';
 import { UserInt } from '../models/userinterface';
+import { UserNameInt } from '../models/usernameinterface';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import swal from 'sweetalert2'
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  AUTH_SERVER: string = 'http://localhost:3050';
-  loggedIn:boolean=false;
-  private username:string='';
-  //JWT PROPERTIES
+  private AUTH_SERVER: string = 'http://localhost:3050';
+  private username = new BehaviorSubject('');
   private token: string='';
+  private loggedIn = new BehaviorSubject(false);
+  constructor(private http:HttpClient, private router:Router) {
 
-  constructor(private http:HttpClient, private router:Router) { }
-
-  //JWT METHODS
+  }
 
   register(user: UserInt):Observable<JWTInt> {
     return this.http.post<JWTInt>(`${this.AUTH_SERVER}/registro`,user)
     .pipe(tap(
       (res: JWTInt) => {
         if (res) {
-          this.saveToken(res.accessToken, res.expiresIn)
+          this.saveToken(res.accessToken)
         }
       }) 
     );
@@ -36,9 +36,8 @@ export class AuthService {
     .pipe(tap(
       (res: JWTInt) => {
         if (res) {
-          this.saveToken(res.accessToken, res.expiresIn);
-          this.username=res.name;
-          localStorage.setItem('username', res.name)
+          this.saveToken(res.accessToken);
+          this.username.next(res.name);
         }
       })
     );
@@ -47,13 +46,12 @@ export class AuthService {
   logout (): void {
     this.token ='';
     localStorage.removeItem("ACCESS_TOKEN");
-    localStorage.removeItem("EXPIRES_IN");
-    localStorage.removeItem("username");
+    this.loggedIn.next(false);
+    this.username.next('');
   }
 
-  private saveToken(token:string, expiresIn:string):void {
+  private saveToken(token:string):void {
     localStorage.setItem("ACCESS_TOKEN", token);
-    localStorage.setItem("EXPIRES_IN", expiresIn);
     this.token=token;
   }
 
@@ -67,16 +65,19 @@ export class AuthService {
     return this.token;
   }
 
-  setInitialStatus() {
+  setInitialStatus():void {
     const stored=localStorage.getItem('ACCESS_TOKEN');
-    const username=localStorage.getItem('username');
     if (stored === null) {
-      this.loggedIn=false;
+      this.loggedIn.next(false);
     }
-    else if (username!==null) {
-      this.loggedIn=true;
+    else  {
+      this.loggedIn.next(true);
       this.token=stored;
-      this.username=username;
+      const unameResp=this.http.get<UserNameInt>(this.AUTH_SERVER+'/getusername', {responseType: 'json'});
+      unameResp.subscribe({
+        next: (uname) => this.username.next(uname.value),
+        error: (e) => console.log(e)
+      })
     }
   }
   
@@ -86,9 +87,16 @@ export class AuthService {
   }
 
   getUsername() {
-    if (this.username!=='')
-      return this.username;
-    else
-      return '';
+    return this.username;
+  }
+
+  expiredToken () {
+    swal.fire({
+      title: 'Sesion expirada.',
+      text: 'Ingrese nuevamente a su cuenta.',
+      icon: 'info'
+    });
+    this.logout();
+    this.router.navigateByUrl('/login');
   }
 }

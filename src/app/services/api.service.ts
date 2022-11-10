@@ -26,6 +26,6 @@ export class ApiService {
   }
 
   public quitarOpcion (id:number) {
-    return this.http.delete(this.url+'/quitaropcion/'+id)
+    return this.http.delete(this.url+'/quitaropcion/'+id);
   }
 }

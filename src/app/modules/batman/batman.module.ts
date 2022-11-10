@@ -11,6 +11,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GustosComponent } from 'src/app/components/gustos/gustos.component';
 import { HeaderInterceptor } from 'src/app/interceptors/header.interceptor';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,8 @@ import { HeaderInterceptor } from 'src/app/interceptors/header.interceptor';
     FormsModule,
     NgbModule,
     HttpClientModule,
+    SweetAlert2Module
   ], 
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HeaderInterceptor,
-      multi:true
-    }
-  ]
+  providers: []
 })
 export class BatmanModule { }

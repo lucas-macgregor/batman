@@ -11,7 +11,14 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
 
-  constructor(private auth:AuthService) {}
+  username:string='';
+
+  constructor(private auth:AuthService) {
+    this.auth.getUsername().subscribe({
+      next: (uname) => this.username=uname,
+      error: (e) => console.log(e)
+    })
+  }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(this.agregarHeader(request));
@@ -19,12 +26,11 @@ export class HeaderInterceptor implements HttpInterceptor {
 
   agregarHeader(request:HttpRequest<unknown>) {
     const token:string | null=this.auth.getToken();
-    const username:string|null=this.auth.getUsername();
-    if (token!==null && username!== '') {
+    if (token!==null) {
       return request.clone({
         setHeaders:{
           token: token,
-          username: username
+          username: this.username
         }
       })
     } else {
@@ -37,4 +43,3 @@ export class HeaderInterceptor implements HttpInterceptor {
     }
   }
 }
-

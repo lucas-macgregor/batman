@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   constructor(private auth:AuthService, router:Router) { }
 
   ngOnInit(): void {
-    this.loggedIn=this.auth.isLoggedIn();
+    this.auth.isLoggedIn().subscribe({
+      next: (stat) => this.loggedIn=stat,
+      error: (e) => console.log(e)
+    });
   }
 
   onLogin (username:string, password:string): void {
@@ -32,6 +35,5 @@ export class LoginComponent implements OnInit {
 
   logOut () {
     this.auth.logout();
-    this.loggedIn=false;
   }
 }

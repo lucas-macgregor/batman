@@ -11,20 +11,18 @@ import { AuthService } from './services/auth.service';
 })
 
 export class AppComponent {
- title="ProyectoInicial";
- faFaceSmile= faFaceSmile;
- faListAlt = faListAlt;
- faInstagram= faInstagram;
- faFacebook = faFacebook ;
- faTwitter  = faTwitter  ;
- faGithub   = faGithub   ;
- faLinkedin = faLinkedin ;
- faGoogle   = faGoogle   ;
- isNavbarCollapsed:boolean=true;
+  title="ProyectoInicial";
+  faFaceSmile= faFaceSmile;
+  faListAlt = faListAlt;
+  faInstagram= faInstagram;
+  faFacebook = faFacebook ;
+  faTwitter  = faTwitter  ;
+  faGithub   = faGithub   ;
+  faLinkedin = faLinkedin ;
+  faGoogle   = faGoogle   ;
+  isNavbarCollapsed:boolean=true;
 
+  constructor() { }
 
- constructor(private auth:AuthService) { }
-
- ngOnInit(): void {  }
- 
+  ngOnInit(): void {  }
 }

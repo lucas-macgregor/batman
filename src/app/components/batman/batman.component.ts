@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Options } from '../../models/options';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-batman',
@@ -9,9 +10,12 @@ import { Options } from '../../models/options';
 })
 export class BatmanComponent implements OnInit {
 
-  constructor(public apiService:ApiService) { }
+  username:string='';
 
-  ngOnInit(): void {  }
+  constructor(public apiService:ApiService, private auth: AuthService) { }
+
+  ngOnInit(): void {
+  }
   
   @Input() batSelect:string='';
   @Input() opciones:Options[]=[];

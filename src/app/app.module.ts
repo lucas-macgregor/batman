@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderInterceptor } from './interceptors/header.interceptor';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -18,13 +20,15 @@ import { HeaderInterceptor } from './interceptors/header.interceptor';
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HeaderInterceptor,
     multi:true
-  }],
+  },
+    AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

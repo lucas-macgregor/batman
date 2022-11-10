@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Options } from '../../models/options';
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-batpadre',
   templateUrl: './batpadre.component.html',
@@ -18,24 +20,45 @@ export class BatpadreComponent implements OnInit {
  
   esCorrecto (batSelect:string) {
    if (batSelect.includes('Bruce Wayne'))
-     alert('Es correcto!')
+    Swal.fire({
+     title: '¡Es correcto!',
+     text: '',
+     icon: 'success'
+    });
    else 
-     alert('No es correcto!')
-   }
+    Swal.fire({
+     title: '¡Incorrecto!',
+     text: '¿Estas seguro?',
+     icon: 'error'
+    });
+  }
  
    agregarOpcion (opcion:string) {
      this.apiService.agregarOpcion(opcion)
      .subscribe({
        error: (e) => console.error (e),
-       complete: () => this.actualizarOpciones()
-     });    
+       complete: () => {
+        this.actualizarOpciones();
+        Swal.fire({
+          title: 'Opcion agregada correctamente.',
+          text: '',
+          icon: 'success'
+        });
+      }});    
    }
  
    quitarOpcion (opcion:number) {
      this.apiService.quitarOpcion(opcion)
      .subscribe({
        error: (e) => console.error (e),
-       complete: () => this.actualizarOpciones()
+       complete: () => {
+        this.actualizarOpciones();
+        Swal.fire({
+          title: 'Opcion quitada correctamente.',
+          text: '',
+          icon: 'success'
+        });
+      }
      });  
    }
  
