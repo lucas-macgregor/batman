@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { UserInt } from 'src/app/models/userinterface';
-import { Router } from '@angular/router';
+import { UserLoginInt } from 'src/app/models/userLoginInterface';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   protected onLogin (username:string, password:string): void {
-    const user:UserInt={username:username, password:password, email:''};
+    const user:UserLoginInt={username:username, password:password, email:''};
     if (username.trim()!=='' && password.trim()!==''){
       this.auth.login(user).subscribe({
         error: (e) => this.onLoginError=true,
