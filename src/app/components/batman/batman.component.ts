@@ -1,7 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Options } from '../../models/options';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-batman',
@@ -10,9 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class BatmanComponent implements OnInit {
 
-  username:string='';
-
-  constructor(public apiService:ApiService, private auth: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -22,18 +18,18 @@ export class BatmanComponent implements OnInit {
   @Output() esCorrectoEvento = new EventEmitter<string>();
   @Output() agregarOpcionEvento = new EventEmitter<string>();
   @Output() quitarOpcionEvento = new EventEmitter<number>();
-  sabe=false;
+  protected sabe:boolean=false;
 
-  esCorrecto(valor:string) {
+  esCorrecto(valor:string):void {
     this.esCorrectoEvento.emit(valor);
   }
 
-  agregarOpcion(valor:string) {
+  agregarOpcion(valor:string):void {
     if (valor.trim()!== '')
       this.agregarOpcionEvento.emit(valor);
   }
   
-  quitarOpcion(valor:string) {
+  quitarOpcion(valor:string):void {
     let numero:number= +valor;
     if (numero !== null && numero>=0)
       this.quitarOpcionEvento.emit(numero);

@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loggedIn:boolean=false;
-  onLoginError:boolean=false;
-  constructor(private auth:AuthService, router:Router) { }
+  protected loggedIn:boolean=false;
+  protected onLoginError:boolean=false;
+  constructor(private auth:AuthService) { }
 
   ngOnInit(): void {
     this.auth.isLoggedIn().subscribe({
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin (username:string, password:string): void {
+  protected onLogin (username:string, password:string): void {
     const user:UserInt={username:username, password:password, email:''};
     if (username.trim()!=='' && password.trim()!==''){
       this.auth.login(user).subscribe({
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  logOut () {
+  protected logOut ():void {
     this.auth.logout();
   }
 }

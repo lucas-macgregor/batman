@@ -43,7 +43,7 @@ export class AuthService {
     );
   }
 
-  logout (): void {
+  public logout (): void {
     this.token ='';
     localStorage.removeItem("ACCESS_TOKEN");
     this.loggedIn.next(false);
@@ -55,7 +55,7 @@ export class AuthService {
     this.token=token;
   }
 
-  getToken(): string {
+  public getToken(): string {
     const storage=localStorage.getItem("ACCESS_TOKEN");
     if (storage!==null) {
       if (!this.token || this.token===''){
@@ -65,7 +65,7 @@ export class AuthService {
     return this.token;
   }
 
-  setInitialStatus():void {
+  public setInitialStatus():void {
     const stored=localStorage.getItem('ACCESS_TOKEN');
     if (stored === null) {
       this.loggedIn.next(false);
@@ -81,16 +81,16 @@ export class AuthService {
     }
   }
   
-  isLoggedIn () {
+  public isLoggedIn ():Observable<boolean> {
     this.setInitialStatus();
     return this.loggedIn;
   }
 
-  getUsername() {
+  public getUsername():Observable<string> {
     return this.username;
   }
 
-  expiredToken () {
+  public expiredToken ():void {
     swal.fire({
       title: 'Sesion expirada.',
       text: 'Ingrese nuevamente a su cuenta.',

@@ -18,7 +18,7 @@ export class BatpadreComponent implements OnInit {
     this.actualizarOpciones();
   }
  
-  esCorrecto (batSelect:string) {
+  esCorrecto (batSelect:string):void {
    if (batSelect.includes('Bruce Wayne'))
     Swal.fire({
      title: '¡Es correcto!',
@@ -33,7 +33,7 @@ export class BatpadreComponent implements OnInit {
     });
   }
  
-   agregarOpcion (opcion:string) {
+   agregarOpcion (opcion:string):void {
      this.apiService.agregarOpcion(opcion)
      .subscribe({
        error: (e) => console.error (e),
@@ -47,7 +47,7 @@ export class BatpadreComponent implements OnInit {
       }});    
    }
  
-   quitarOpcion (opcion:number) {
+   quitarOpcion (opcion:number):void {
      this.apiService.quitarOpcion(opcion)
      .subscribe({
        error: (e) => console.error (e),
@@ -62,7 +62,7 @@ export class BatpadreComponent implements OnInit {
      });  
    }
  
-   actualizarOpciones () {
+   actualizarOpciones ():void {
      this.apiService.getOpciones().subscribe({
        next: (response) => this.opciones = response,
        error: (e) => console.error (e),
