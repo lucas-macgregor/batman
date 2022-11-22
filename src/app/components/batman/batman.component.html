@@ -2,27 +2,27 @@
 <div class="container mt-5">
     <h1 class="mb-3">¿Quien es Batman?</h1>
     <span class="rounded" [ngStyle]="{'backgroundColor': sabe?'red':'green'}">(Lo sabemos?)</span>
-    <input type="checkbox"
+    <input type="checkbox" id="checkbox"
     [checked]="sabe"
     (change)="sabe=!sabe">
-    <p *ngIf="sabe else nosabe">Bruce Wayne :O!</p>
-    <ng-template #nosabe><p>Un vampiro muscoloso :O!</p></ng-template>
+    <p *ngIf="sabe else nosabe" id="sabe">Bruce Wayne :O!</p>
+    <ng-template #nosabe><p id="sabe">Un vampiro muscoloso :O!</p></ng-template>
 </div>
 <div class="container mt-5 mb-5">
-  <p>Batman es: {{batSelect}}</p>
+  <p id="batSelect">Batman es: {{batSelect}}</p>
   <div class="input-group">
-    <select class="custom-select rounded" [(ngModel)]="batSelect" name="batSelect" id="batSelect">
+    <select class="custom-select rounded" [(ngModel)]="batSelect" name="batSelect" >
       <option *ngFor="let opcion of opciones" [value]="opcion.opcion">{{opcion.opcion}}</option>
     </select>
     <div class="input-group-append">
-      <button class="btn btn-dark" type="button" (click)="esCorrecto(batSelect)">¿Es correcto?</button>
+      <button class="btn btn-dark" type="button" (click)="esCorrecto(batSelect)" id="esCorrectoBtn">¿Es correcto?</button>
     </div>
   </div>
   <p class="mt-2">Agregar opcion:</p>
   <div class="input-group agregar-opc mb-3">
-    <input type="text" class="form-control rounded" placeholder="Ingrese nueva opcion..." #agregar>
+    <input type="text" class="form-control rounded" placeholder="Ingrese nueva opcion..." id="agregarOpcionInput" #agregar>
     <div class="input-group-append">
-      <button class="btn btn-dark" type="button" (click)="agregarOpcion(agregar.value)">Agregar</button>
+      <button class="btn btn-dark" type="button" (click)="agregarOpcion(agregar.value)" id="agregarOpcionBtn">Agregar</button>
     </div>
   </div>
   <p class="mt-2">Quitar opcion:</p>

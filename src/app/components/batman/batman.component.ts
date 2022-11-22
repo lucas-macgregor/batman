@@ -18,7 +18,7 @@ export class BatmanComponent implements OnInit {
   @Output() esCorrectoEvento = new EventEmitter<string>();
   @Output() agregarOpcionEvento = new EventEmitter<string>();
   @Output() quitarOpcionEvento = new EventEmitter<number>();
-  protected sabe:boolean=false;
+  public sabe:boolean=false;
 
   esCorrecto(valor:string):void {
     this.esCorrectoEvento.emit(valor);

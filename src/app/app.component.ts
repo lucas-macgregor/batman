@@ -22,7 +22,9 @@ export class AppComponent {
   faGoogle   = faGoogle   ;
   isNavbarCollapsed:boolean=true;
 
-  constructor() { }
+  constructor(private auth:AuthService) { }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {  
+    this.auth.setInitialStatus();
+  }
 }

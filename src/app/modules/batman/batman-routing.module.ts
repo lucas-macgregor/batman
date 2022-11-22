@@ -4,7 +4,6 @@ import { GustosComponent } from 'src/app/components/gustos/gustos.component';
 import { BatpadreComponent } from 'src/app/components/batpadre/batpadre.component';
 import { NotfoundComponent } from 'src/app/components/notfound/notfound.component'
 import { InicioComponent } from 'src/app/components/inicio/inicio.component';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 const routes: Routes = [
   {path: '', component: InicioComponent},

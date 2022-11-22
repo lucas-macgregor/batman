@@ -41,6 +41,7 @@ export class AuthService {
           this.saveToken(res.accessToken);
           this.username.next(res.username);
           this.email.next(res.email);
+          this.loggedIn.next(true);
         }
       })
     );
@@ -50,6 +51,7 @@ export class AuthService {
     this.token ='';
     localStorage.removeItem("ACCESS_TOKEN");
     this.loggedIn.next(false);
+    this.email.next('');
     this.username.next('');
   }
 
@@ -88,7 +90,6 @@ export class AuthService {
   }
   
   public isLoggedIn ():Observable<boolean> {
-    this.setInitialStatus();
     return this.loggedIn;
   }
 

@@ -24,9 +24,8 @@ export class LoginComponent implements OnInit {
     const user:UserLoginInt={username:username, password:password, email:''};
     if (username.trim()!=='' && password.trim()!==''){
       this.auth.login(user).subscribe({
-        error: (e) => this.onLoginError=true,
+        error: () => this.onLoginError=true,
         complete: () => {
-          this.loggedIn=true;
           this.onLoginError=false;
         }
       });
