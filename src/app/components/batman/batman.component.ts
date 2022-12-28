@@ -30,8 +30,10 @@ export class BatmanComponent implements OnInit {
   }
   
   quitarOpcion(valor:string):void {
-    let numero:number= +valor;
-    if (numero !== null && numero>=0)
-      this.quitarOpcionEvento.emit(numero);
+    if (valor.trim()!=='') { 
+      let numero:number= +valor;
+      if (numero !== null && numero>=0)
+        this.quitarOpcionEvento.emit(numero);
+    }
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Table } from '../models/table';
 import { Options } from '../models/options';
+import { MessageBundle } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,19 @@ export class ApiService {
     return this.http.post(this.url+'/agregaropcion',{"opcion": opcion});
   }
 
+  public agregarGusto(meGusta:string, noGusta: string) {
+    return this.http.post(this.url+'/agregargusto',{"meGusta": meGusta,  "noGusta": noGusta});
+  }
+
   public quitarOpcion (id:number) {
     return this.http.delete(this.url+'/quitaropcion/'+id);
+  }
+  
+  public quitarGusto (id:number) {
+    return this.http.delete(this.url+'/quitargusto/'+id);
+  }
+
+  public editarGusto (id:number,meGusta:string,noGusta:string) {
+    return this.http.patch(this.url+'/editargusto/'+id, {"meGusta": meGusta, "noGusta": noGusta});
   }
 }

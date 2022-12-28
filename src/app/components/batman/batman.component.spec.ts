@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { Options } from 'src/app/models/options';
 import { BatmanComponent } from './batman.component';
 
 describe('BatmanComponent', () => {
@@ -35,7 +36,7 @@ describe('BatmanComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
+/////////////////////////////Sabe variable tests starts///////////////////////////
   it ('test if sabe element starts as Un vampiro musculoso :O!', () => {
     const text:HTMLElement=fixture.nativeElement.querySelector('#sabe');
     expect(text.innerText)
@@ -63,7 +64,7 @@ describe('BatmanComponent', () => {
     expect(component.sabe)
       .toBeTrue()
   });
-
+/////////////////////////////batSelect variable tests starts///////////////////////////
   it ('test if the initial element of the batSelect is the first options array element', () => {
     const inputEl: HTMLElement=fixture.nativeElement.querySelector('#batSelect');
     expect(inputEl.innerText)
@@ -78,7 +79,7 @@ describe('BatmanComponent', () => {
     expect(batmanEl.innerText)
       .toEqual(`Batman es: ${component.batSelect}`);
   });
-
+/////////////////////////////esCorrecto method tests starts///////////////////////////
   it ('test esCorrecto correct value', () => {
     component.batSelect=component.opciones[1].opcion;
     fixture.detectChanges();
@@ -98,6 +99,32 @@ describe('BatmanComponent', () => {
     expect(selected)
       .not.toContain('Bruce Wayne');
   });
+/////////////////////////////agregarOpcion method tests starts///////////////////////////
+  it('should emit the event agregarOpcionEvento when passing an empty value', () => {       
+    spyOn(component.agregarOpcionEvento, 'emit');
+    component.agregarOpcion('Un vampiro musculoso.');
+    expect(component.agregarOpcionEvento.emit)
+      .toHaveBeenCalled();
+  });
 
-  
+  it('should not emit the event agregarOpcionEvento when passing an empty value', () => {       
+    spyOn(component.agregarOpcionEvento, 'emit');
+    component.agregarOpcion('');
+    expect(component.agregarOpcionEvento.emit)
+      .not.toHaveBeenCalled();
+  });
+/////////////////////////////quitarOpcion method tests starts///////////////////////////
+  it('should emit the event quitarOpcionEvento', () => {       
+    spyOn(component.quitarOpcionEvento, 'emit');
+    component.quitarOpcion('0');
+    expect(component.quitarOpcionEvento.emit)
+      .toHaveBeenCalled();
+  });
+
+  it('should not emit the event quitarOpcionEvento when passing an empty value', () => {       
+    spyOn(component.quitarOpcionEvento, 'emit');
+    component.quitarOpcion('');
+    expect(component.quitarOpcionEvento.emit)
+      .not.toHaveBeenCalled();
+  });
 });

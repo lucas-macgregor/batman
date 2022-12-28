@@ -31,7 +31,7 @@
       <option *ngFor="let opcion of opciones" [value]="opcion.id">{{opcion.opcion}}</option>
     </select>
     <div class="input-group-append">
-      <button class="btn btn-dark" type="button" (click)="quitarOpcion(quitar.value)">Quitar</button>
+      <button class="btn btn-dark" type="button" (click)="quitarOpcion(quitar.value)" id="quitarOpcionBtn">Quitar</button>
     </div>
   </div>
 </div>

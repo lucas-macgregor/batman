@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserLoginInt } from 'src/app/models/userLoginInterface';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +9,12 @@ import { UserLoginInt } from 'src/app/models/userLoginInterface';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   protected loggedIn:boolean=false;
   protected onLoginError:boolean=false;
-  constructor(private auth:AuthService) { }
+  constructor(private auth:AuthService) {   }
 
   ngOnInit(): void {
-    this.auth.isLoggedIn().subscribe({
+  this.auth.isLoggedIn().subscribe({
       next: (stat) => this.loggedIn=stat,
       error: (e) => console.log(e)
     });
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if (username.trim()!=='' && password.trim()!==''){
       this.auth.login(user).subscribe({
         error: () => this.onLoginError=true,
-        complete: () => {
+        next: () => {
           this.onLoginError=false;
         }
       });
@@ -35,4 +35,5 @@ export class LoginComponent implements OnInit {
   protected logOut ():void {
     this.auth.logout();
   }
+
 }
