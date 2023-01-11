@@ -15,6 +15,7 @@ export class GustosComponent implements OnInit {
   itemToEdit:number=1;
   indexOfItemToEdit:number=1;
   itemToDelete:number=1;
+  selectedFields:Array<number>=[];
   constructor(private apiService:ApiService, private auth:AuthService ) { }
 
   ngOnInit(): void {
@@ -25,20 +26,21 @@ export class GustosComponent implements OnInit {
           this.auth.expiredToken();
         }
         console.error (e);
-    }
-  });
+      }
+    });
+    console.log(this.selectedFields)
   }
 
   protected deleteRow():void{
     this.apiService.quitarGusto(this.itemToDelete).pipe(take(1)).subscribe({
-      next: () => this.apiService.getGustos().subscribe({
-        next: (tabla) => this.gustos=tabla,
-        error: (e) => {
-          if (e.status===401) {
-            this.auth.expiredToken();
-          }
+      error: (error) => {
+        if (error.status===401) {
+          this.auth.expiredToken();
         }
-      }),
+      }
+    });
+    this.apiService.getGustos().pipe(take(1)).subscribe({
+      next: (tabla) => this.gustos=tabla,
       error: (error) => {
         if (error.status===401) {
           this.auth.expiredToken();
@@ -54,20 +56,19 @@ export class GustosComponent implements OnInit {
   protected editInterface(id:number,index:number):void {
     this.itemToEdit=id;
     this.indexOfItemToEdit=index;
-    console.log('id:'+id+' '+'index:'+index)
   }
 
   protected updateField(meGusta:string, noGusta:string):void {
     if(meGusta!==this.gustos[this.indexOfItemToEdit].meGusta || noGusta!==this.gustos[this.indexOfItemToEdit].noGusta) {
       this.apiService.editarGusto(this.itemToEdit,meGusta,noGusta).pipe(take(1)).subscribe({
-        next: () => this.apiService.getGustos().pipe(take(1)).subscribe({
-          next: (tabla) => this.gustos=tabla,
-          error: (e) => {
-            if (e.status===401) {
-              this.auth.expiredToken();
-            }
+        error: (error) => {
+          if (error.status===401) {
+            this.auth.expiredToken();
           }
-        }),
+        }
+      });
+      this.apiService.getGustos().pipe(take(1)).subscribe({
+        next: (tabla) => this.gustos=tabla,
         error: (error) => {
           if (error.status===401) {
             this.auth.expiredToken();
@@ -75,25 +76,48 @@ export class GustosComponent implements OnInit {
         }
       });
     }
-    else
-      console.log('Los campos son iguales')
   }
 
   protected addGustos(meGusta:string, noGusta:string):void {
     this.apiService.agregarGusto(meGusta,noGusta).pipe(take(1)).subscribe({
-      next: () => this.apiService.getGustos().pipe(take(1)).subscribe({
-        next: (tabla) => this.gustos=tabla,
-        error: (e) => {
-          if (e.status===401) {
-            this.auth.expiredToken();
-          }
-        }
-      }),
       error: (error) => {
         if (error.status===401) {
           this.auth.expiredToken();
         }
       }
     });
+    this.apiService.getGustos().pipe(take(1)).subscribe({
+      next: (tabla) => this.gustos=tabla,
+      error: (error) => {
+        if (error.status===401) {
+          this.auth.expiredToken();
+        }
+      }
+    });
+  }
+
+  protected updateSelected(index:number):void {
+    if(this.selectedFields.includes(index)){
+      this.selectedFields.splice(this.selectedFields.indexOf(index),1);
+    }
+    else {
+      this.selectedFields.push(index);
+    }
+  }
+
+  protected download():void {
+    this.selectedFields.sort();
+    const itemsToDownload:Table[]=[];
+    this.selectedFields.forEach(element => {
+      itemsToDownload.push(this.gustos[element]);
+    });
+    this.apiService.descargar(itemsToDownload).subscribe({
+      next: (response) => {
+        const blob = new Blob([response], {type:'application/vnd.ms-excel'})
+        const url= window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      error: (error)=> console.log(error)
+    })
   }
 }

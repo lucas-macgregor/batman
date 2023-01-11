@@ -8,7 +8,8 @@ import Swal from 'sweetalert2';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { throwError } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 
 class MockApiService {
   opciones = new BehaviorSubject<Options[]>(
@@ -42,7 +43,7 @@ class MockApiService {
 }
 
 class MockAuthService {
-  expiredtoken ():void {
+  expiredToken ():void {
     
   };
 }
@@ -88,7 +89,7 @@ describe('BatpadreComponent', () => {
     component.ngOnInit();
     expect(serviceSpy)
       .toHaveBeenCalled();
-  })
+  });
   ///////////////////////AgregarOpcion tests////////////////////////////////
 
   it ('should add an option', () => {
@@ -96,6 +97,18 @@ describe('BatpadreComponent', () => {
     expect(component.opciones.length).toEqual(3);
   });
 
+  it ('should NOT add an option', () => {
+    const spy = spyOn (apiService,'agregarOpcion').and.returnValue(throwError(() => new Observable<Error>()));
+    const consoleSpy = spyOn(console,'error');
+    component.agregarOpcion('asd');
+    expect(consoleSpy)
+      .toHaveBeenCalled();
+    expect(spy)
+      .toHaveBeenCalled();
+    expect(component.opciones.length)
+      .toEqual(2);
+  });
+  
   /////////////////////////testing on quitaropcion//////////////////////
   it('should delete 1 element and update the options', () => {
     component.quitarOpcion(0);
@@ -130,5 +143,32 @@ describe('BatpadreComponent', () => {
     const swalSpy = spyOn(Swal,'fire');
     component.esCorrecto('asdasd'); 
     expect(swalSpy).toHaveBeenCalled();
+  });
+  /////////////////////Actualizar Opciones test//////////////////////////////////
+
+  it('should show an empty string on batselect if options are 0', ()=>{
+    const serviceSpy = spyOn(apiService,'getOpciones').and.returnValue(new Observable<Options[]>());
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(serviceSpy)
+      .toHaveBeenCalled();
+    expect(component.batSelect)
+      .toMatch('');
+  });
+
+  it('should show an error on wrong token', ()=>{
+    const errorResponse = new HttpErrorResponse ({
+      error: { code: `codigo`, message: `mensaje.` },
+      status: 401,
+      statusText: 'Unauthorized',
+    });
+    const serviceSpy = spyOn(apiService,'getOpciones').and.returnValue(throwError(()=> errorResponse));
+    const tokenSpy = spyOn(auth,'expiredToken');
+    component.actualizarOpciones();
+
+    expect(serviceSpy)
+      .toHaveBeenCalled();
+    expect(tokenSpy)
+      .toHaveBeenCalled();
   });
 });

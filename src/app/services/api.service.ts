@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Table } from '../models/table';
 import { Options } from '../models/options';
-import { MessageBundle } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +39,9 @@ export class ApiService {
 
   public editarGusto (id:number,meGusta:string,noGusta:string) {
     return this.http.patch(this.url+'/editargusto/'+id, {"meGusta": meGusta, "noGusta": noGusta});
+  }
+
+  public descargar(elementos:Table[]) {
+    return this.http.post(this.url+'/descargar',{elementos},{responseType: 'blob'});
   }
 }

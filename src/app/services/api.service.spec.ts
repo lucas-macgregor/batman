@@ -52,9 +52,31 @@ describe('ApiService', () => {
     req.flush(testData);
   });
 
-  it('should send correct data to deletion',()=>{
+  it('should send correct data to deletion of opciones',()=>{
     service.quitarOpcion(1).subscribe();
     const req = httpTestingController.expectOne(apiDir+'/quitaropcion/1');
     expect(req.request.method).toEqual('DELETE');
+  });
+
+  it('should return send data from agregarGusto', ()=>{
+    const testData:Object={meGusta:'megusta', noGusta: 'nogusta'};
+    service.agregarGusto('megusta','nogusta').subscribe(data => expect(data).toEqual(testData));
+    const req = httpTestingController.expectOne(apiDir+'/agregargusto');
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(testData);
+    req.flush(testData);
+  });
+
+  it('should send correct data to deletion of gustos',()=>{
+    service.quitarGusto(1).subscribe();
+    const req = httpTestingController.expectOne(apiDir+'/quitargusto/1');
+    expect(req.request.method).toEqual('DELETE');
+  });
+
+  it('should send correct data to deletion',()=>{
+    service.editarGusto(1,'megusta','nogusta').subscribe();
+    const req = httpTestingController.expectOne(apiDir+'/editargusto/1');
+    expect(req.request.body).toEqual({meGusta: 'megusta', noGusta: 'nogusta'});
+    expect(req.request.method).toEqual('PATCH');
   });
 });

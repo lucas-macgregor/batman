@@ -1,9 +1,9 @@
 <div class="container mt-5">
-  <h1 class="mb-3">Sobre mi:  
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add-Modal">
-    <i class="fa fa-plus"></i> 
+  <h1 class="mb-3 col-12">Sobre mi:  
+    <button type="button" class="btn btn-info add" data-bs-toggle="modal" data-bs-target="#add-Modal">
     Agregar Gustos
   </button>
+  <button type="button" class="btn btn-info download" (click)="download()">Descargar</button>
   </h1>
   <div>
     <table class="table table-striped table-dark mb-5">
@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let gusto of gustos; let i = index" [attr.data-index]="i">
-          <th scope="row">{{gusto.id}}</th>
+          <th scope="row"><input type="checkbox" id="checkbox" (change)="updateSelected(i)"></th>
           <td>{{gusto.meGusta}}</td>
           <td>{{gusto.noGusta}}</td>
           <td>
