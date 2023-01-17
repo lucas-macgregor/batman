@@ -8,11 +8,10 @@ import { NotfoundComponent } from 'src/app/components/notfound/notfound.componen
 import { InicioComponent } from 'src/app/components/inicio/inicio.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { GustosComponent } from 'src/app/components/gustos/gustos.component';
-import { HeaderInterceptor } from 'src/app/interceptors/header.interceptor';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { AuthService } from 'src/app/services/auth.service';
+import { GustosChartsComponent } from 'src/app/components/gustos-charts/gustos-charts.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,8 @@ import { AuthService } from 'src/app/services/auth.service';
     GustosComponent,
     BatpadreComponent,
     NotfoundComponent,
-    InicioComponent
+    InicioComponent,
+    GustosChartsComponent
   ],
   imports: [
     CommonModule,

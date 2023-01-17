@@ -28,7 +28,6 @@ export class GustosComponent implements OnInit {
         console.error (e);
       }
     });
-    console.log(this.selectedFields)
   }
 
   protected deleteRow():void{
@@ -119,5 +118,26 @@ export class GustosComponent implements OnInit {
       },
       error: (error)=> console.log(error)
     })
+  }
+
+  protected upVote(id:number,index:number,type:number):void {
+    if (type===1){
+      this.gustos[index].meGusta_cont+=1;
+    }
+    else {
+      this.gustos[index].noGusta_cont+=1;
+    }
+
+  }
+
+  protected downVote(id:number, index:number, type:number):void {
+    if (type===1 && this.gustos[index].meGusta_cont>0){
+      this.gustos[index].meGusta_cont-=1;
+    }
+    else {
+      if (type===0 && this.gustos[index].noGusta_cont>0){
+        this.gustos[index].noGusta_cont-=1;
+      }
+    }
   }
 }

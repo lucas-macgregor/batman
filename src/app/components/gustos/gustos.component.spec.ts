@@ -1,6 +1,5 @@
 import { HttpClientModule, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { Table } from 'src/app/models/table';
 import { ApiService } from 'src/app/services/api.service';
