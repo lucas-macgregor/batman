@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { BatmanRoutingModule } from './batman-routing.module';
 import { BatmanComponent } from 'src/app/components/batman/batman.component';
 import { BatpadreComponent } from 'src/app/components/batpadre/batpadre.component';
@@ -12,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GustosComponent } from 'src/app/components/gustos/gustos.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GustosChartsComponent } from 'src/app/components/gustos-charts/gustos-charts.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,9 @@ import { GustosChartsComponent } from 'src/app/components/gustos-charts/gustos-c
     FormsModule,
     NgbModule,
     HttpClientModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    NgChartsModule,
+    
   ], 
   providers: []
 })

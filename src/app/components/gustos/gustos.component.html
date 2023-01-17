@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<app-gustos-charts 
+<app-gustos-charts *ngIf="this.gustos.length!==0"
   [gustos]="gustos">
 </app-gustos-charts>
 

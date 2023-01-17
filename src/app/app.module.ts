@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderInterceptor } from './interceptors/header.interceptor';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AuthService } from './services/auth.service';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
     FontAwesomeModule,
     NgbModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    NgChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

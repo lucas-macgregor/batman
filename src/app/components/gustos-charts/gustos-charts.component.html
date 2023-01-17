@@ -1,1 +1,8 @@
-<p>gustos-charts works!</p>
+<canvas baseChart class="chart"
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="barChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+</canvas>
+<button class="btn" (click)="randomize()">Bring me</button>
