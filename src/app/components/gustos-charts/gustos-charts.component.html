@@ -1,8 +1,13 @@
-<canvas baseChart class="chart"
+<div class="container d-flex">
+        <canvas baseChart class="chart col-4"
+        (click)="changeOnClick()"
         [data]="barChartData"
         [options]="barChartOptions"
-        [type]="barChartType"
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
+        [type]="barChartType">
+        </canvas>
+        <canvas baseChart class="chart col-4"
+        [data]="pieChartData"
+        [type]="pieChartType"
+        [options]="pieChartOptions">
 </canvas>
-<button class="btn" (click)="randomize()">Bring me</button>
+</div>

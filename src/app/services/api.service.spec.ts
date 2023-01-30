@@ -28,7 +28,7 @@ describe('ApiService', () => {
   });
 
   it('should return correct data from getGustos', ()=>{
-    const testData: Table[]=[{ id:0 , meGusta: 'asd', noGusta: 'asd2'}];
+    const testData: Table[]=[{ id:0 , meGusta: 'asd', noGusta: 'asd2', meGusta_cont:1, noGusta_cont:2}];
     service.getGustos().subscribe(data => expect(data).toEqual(testData));
     const req = httpTestingController.expectOne(apiDir+'/gustos');
     expect(req.request.method).toEqual('GET');

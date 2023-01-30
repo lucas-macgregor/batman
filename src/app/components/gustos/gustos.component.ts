@@ -3,6 +3,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Table } from '../../models/table';
 import { ApiService } from '../../services/api.service';
 import { take } from 'rxjs'
+import Swal from 'sweetalert2';
+import { Title } from 'chart.js';
+import { icon } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-gustos',
@@ -16,7 +19,10 @@ export class GustosComponent implements OnInit {
   indexOfItemToEdit:number=1;
   itemToDelete:number=1;
   selectedFields:Array<number>=[];
-  constructor(private apiService:ApiService, private auth:AuthService ) { }
+  form:FormData=new FormData();
+  updateBtn:boolean=false;
+
+  constructor(private apiService:ApiService, private auth:AuthService) { }
 
   ngOnInit(): void {
     this.apiService.getGustos().pipe(take(1)).subscribe({
@@ -127,17 +133,61 @@ export class GustosComponent implements OnInit {
     else {
       this.gustos[index].noGusta_cont+=1;
     }
-
+    this.apiService.updateVote(id,type,1).pipe(take(1)).subscribe({
+      error: (error) =>{console.log(error)}
+    })
+    const newTable:Table[]=this.gustos.slice();
+    this.gustos=newTable;
   }
 
   protected downVote(id:number, index:number, type:number):void {
     if (type===1 && this.gustos[index].meGusta_cont>0){
       this.gustos[index].meGusta_cont-=1;
+      this.apiService.updateVote(id,type,-1).pipe(take(1)).subscribe({
+        error: (error) =>{console.log(error)}
+      });
+      const newTable:Table[]=this.gustos.slice();
+      this.gustos=newTable;
     }
     else {
       if (type===0 && this.gustos[index].noGusta_cont>0){
         this.gustos[index].noGusta_cont-=1;
+        this.apiService.updateVote(id,type,-1).pipe(take(1)).subscribe({
+          error: (error) =>{console.log(error)}
+        });
+        const newTable:Table[]=this.gustos.slice();
+        this.gustos=newTable;
       }
     }
   }
+  
+  protected onFileSelected(event:any) {
+    console.log(event);
+    const file:File = event.target.files[0];
+    if (file && file.type==='application/vnd.ms-excel') {
+      this.updateBtn=true;
+      this.form.append("file", file);
+    }
+    else {
+      Swal.fire({
+        title: ' Tipo de archivo incorrecto.',
+        icon: 'error'
+      });
+      this.updateBtn=false;
+    }
+  }
+
+  protected upload():void {
+    this.apiService.upload(this.form).pipe(take(1)).subscribe({
+      next: () => {    
+        this.apiService.getGustos().pipe(take(1)).subscribe({
+          next: (value) => this.gustos=value,
+          error: (e) => console.log(e)
+        }
+      )},
+      error: (e) => console.log(e)
+    });
+
+  }
+
 }

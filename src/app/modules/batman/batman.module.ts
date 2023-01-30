@@ -5,7 +5,7 @@ import { BatmanComponent } from 'src/app/components/batman/batman.component';
 import { BatpadreComponent } from 'src/app/components/batpadre/batpadre.component';
 import { NotfoundComponent } from 'src/app/components/notfound/notfound.component';
 import { InicioComponent } from 'src/app/components/inicio/inicio.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { GustosComponent } from 'src/app/components/gustos/gustos.component';
@@ -30,7 +30,7 @@ import { NgChartsModule } from 'ng2-charts';
     HttpClientModule,
     SweetAlert2Module,
     NgChartsModule,
-    
+    ReactiveFormsModule
   ], 
   providers: []
 })

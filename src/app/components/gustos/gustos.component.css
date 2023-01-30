@@ -19,3 +19,11 @@ td {
 .download {
     margin-left: 15px;
 }
+
+.upload {
+    height: 38px;
+}
+
+.form-label {
+    font-size: x-large;
+}

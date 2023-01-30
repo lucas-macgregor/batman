@@ -44,4 +44,12 @@ export class ApiService {
   public descargar(elementos:Table[]) {
     return this.http.post(this.url+'/descargar',{elementos},{responseType: 'blob'});
   }
+
+  public updateVote(id:number,type:number,value:number) {
+    return this.http.patch(this.url+'/editarvoto/'+id, {type,value});
+  }
+
+  public upload(form:FormData) {
+    return this.http.post(this.url+'/upload',form);
+  }
 }

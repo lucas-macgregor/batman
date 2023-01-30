@@ -1,25 +1,33 @@
 import { HttpClientModule, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { Table } from 'src/app/models/table';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 import { GustosComponent } from './gustos.component';
 class MockApiService {
   tabla=new BehaviorSubject<Table[]>([{
     id: 0,
     meGusta: 'Helado',
-    noGusta: 'Vinagre'
+    noGusta: 'Vinagre',
+    meGusta_cont: 1,
+    noGusta_cont: 2
   },
   {
     id:1,
     meGusta: 'Milanesa',
-    noGusta: 'Mayonesa'
+    noGusta: 'Mayonesa',
+    meGusta_cont: 1,
+    noGusta_cont: 2
   },
   {
     id:2,
     meGusta: 'Algo',
-    noGusta: 'Algont'
+    noGusta: 'Algont',
+    meGusta_cont: 1,
+    noGusta_cont: 2
   }
 ]);
 
@@ -49,12 +57,20 @@ class MockApiService {
   agregarGusto(meGusta:string,noGusta:string):Observable<never> {
     let newTable:Table[]=this.tabla.value;
     const lastID=newTable[newTable.length-1].id+1;
-    newTable.push({id:lastID,meGusta,noGusta});
+    newTable.push({id:lastID,meGusta,noGusta,meGusta_cont:1,noGusta_cont:2});
     this.tabla.next(newTable);
     return new Observable();
   }
 
   descargar(itemsToDownload:Table[]):Observable<never> {
+    return new Observable;
+  }
+
+  updateVote (id:number,type:number,value:number):Observable<never> {
+    return new Observable;
+  }
+
+  upload (from:FormGroup):Observable<never> {
     return new Observable;
   }
 }
@@ -221,5 +237,106 @@ describe('GustosComponent', () => {
     expect(component['selectedFields'].length).toEqual(3);
     expect(component['selectedFields']).toEqual([1,2,3]);
     //expect(downloadSpy).toHaveBeenCalled();
-  })
+  });
+
+  it('should upvote a megusta',()=>{
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(new Observable());
+    component['upVote'](0,0,1);
+    expect(apiSpy).toHaveBeenCalled();
+    expect(component.gustos[0].meGusta_cont).toEqual(2);
+  });
+
+  it('should upvote a nogusta',()=>{
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(new Observable());
+    component['upVote'](0,0,0);
+    expect(apiSpy).toHaveBeenCalled();
+    expect(component.gustos[0].noGusta_cont).toEqual(3);
+  });
+
+  it('should downvote a megusta',()=>{
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(new Observable());
+    component['downVote'](0,0,1);
+    expect(apiSpy).toHaveBeenCalled();
+    expect(component.gustos[0].meGusta_cont).toEqual(0);
+  });
+
+  it('should downvote a nogusta',()=>{
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(new Observable());
+    component['downVote'](0,0,0);
+    expect(apiSpy).toHaveBeenCalled();
+    expect(component.gustos[0].noGusta_cont).toEqual(1);
+  });
+
+  it('should NOT upvote a nogusta',()=>{
+    const errorResponse = new HttpErrorResponse ({
+      error: { code: `codigo`, message: `mensaje.` },
+      status: 401,
+      statusText: 'Unauthorized',
+    });
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(throwError(()=> errorResponse));
+    component['upVote'](0,0,0);
+    expect(apiSpy).toHaveBeenCalled();
+  });
+
+  it('should NOT downvote a megusta',()=>{
+    const errorResponse = new HttpErrorResponse ({
+      error: { code: `codigo`, message: `mensaje.` },
+      status: 401,
+      statusText: 'Unauthorized',
+    });
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(throwError(()=> errorResponse));
+    component['downVote'](0,0,1);
+    expect(apiSpy).toHaveBeenCalled();
+  });
+
+  it('should NOT downvote a nogusta',()=>{
+    const errorResponse = new HttpErrorResponse ({
+      error: { code: `codigo`, message: `mensaje.` },
+      status: 401,
+      statusText: 'Unauthorized',
+    });
+    component.ngOnInit();
+    const apiSpy = spyOn(apiService,'updateVote').and.returnValue(throwError(()=> errorResponse));
+    component['downVote'](0,0,0);
+    expect(apiSpy).toHaveBeenCalled();
+  });
+
+  it('should pre-load a correct file type and enable upload button.', ()=> {
+    const file = [];
+    file.push({type:"application/vnd.ms-excel"});
+    const eventObj = {
+      target: {
+        files: file
+      }
+    }
+    component['onFileSelected'](eventObj);
+    expect(component.updateBtn).toBeTrue();
+  });
+
+  
+  it('should NOT pre-load a correct file type and enable upload button.', ()=> {
+    const file = [];
+    file.push({type:"text/html"});
+    const eventObj = {
+      target: {
+        files: file
+      }
+    }
+    const swalSpy = spyOn(Swal,'fire');
+    component['onFileSelected'](eventObj);
+    expect(component.updateBtn).toBeFalse();
+    expect(swalSpy).toHaveBeenCalled();
+  });
+
+  it('should upload the selected file.', ()=>{
+    const apiSpy = spyOn(apiService,'upload').and.returnValue(new Observable());
+    component['upload']();
+    expect(apiSpy).toHaveBeenCalled();
+  });
 });
